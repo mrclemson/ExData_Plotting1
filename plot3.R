@@ -13,8 +13,11 @@ rm(alldata)
 hh_power <- transform(hh_power, Date = as.Date(hh_power$Date, "%d/%m/%Y"))
 hh_power$Timestamp <- strptime(paste(hh_power$Date, hh_power$Time), "%Y-%m-%d %H:%M:%S")
 
-## Plot #2
-png(filename = "plot2.png",width = 480, height = 480, units = "px", bg = "white")
-plot(hh_power$Timestamp, hh_power$Global_active_power, type = "l", col = "black",
-     xlab = "", ylab = "Global Active Power (kilowatts)")
+## Plot #3
+png(filename = "plot3.png",width = 480, height = 480, units = "px", bg = "white")
+with(hh_power, {
+    plot (Timestamp, Sub_metering_1, type = "l", xlab = "", ylab = "Engergy sub metering")
+    lines(Timestamp, Sub_metering_2, col = 'Red')
+    lines(Timestamp, Sub_metering_3, col = 'Blue')})
+legend("topright", col = c("black", "red", "blue"), lty = 1, legend = names(hh_power)[7:9])
 dev.off()
